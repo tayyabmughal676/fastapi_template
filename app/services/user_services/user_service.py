@@ -1,6 +1,5 @@
 from typing import Optional
 from uuid import UUID
-
 import pymongo
 from app.core.security import get_password_hash, verify_password
 from app.models.user_models.user_model import UserModel
