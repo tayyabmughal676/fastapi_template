@@ -49,7 +49,9 @@ async def read_root():
     :return:
     """
     return {
-        "Route": "API V1",
+        "Welcome to": "Python FastAPI Framework with Mongodb Scaffold Template",
+        "Software Engineer": "Tayyab Mughal",
+        "Github": "https://github.com/tayyabmughal676"
     }
 
 
