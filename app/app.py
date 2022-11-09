@@ -15,6 +15,7 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
 
+# [...]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
@@ -35,11 +36,21 @@ async def app_init():
         database=db_client,
         document_models=[
             UserModel,
-            TodoModel
+            TodoModel,
         ]
     )
 
     print("initialize application services")
+
+
+@app.get("/")
+async def read_root():
+    """
+    :return:
+    """
+    return {
+        "Route": "API V1",
+    }
 
 
 # Including the API V1 Routes

@@ -9,6 +9,9 @@ api_v1_router = APIRouter()
 
 @api_v1_router.get("/")
 async def read_root():
+    """
+    :return:
+    """
     return {
         "Route": "API V1",
     }
