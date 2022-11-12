@@ -1,25 +1,53 @@
+"""
+    Logging
+    Enum
+
+"""
 import logging
+from enum import Enum
 
-logging.basicConfig(filename='app_level.log', filemode='w', format='%(asctime)s %(name)s - %(levelname)s - %(message)s',
-                    datefmt='%d-%b-%y %H:%M:%S')
+file_name: str = "app_level.log"
+file_mode: str = 'w'
+message_format: str = '%(asctime)s %(name)s - %(levelname)s - %(message)s'
+message_dateformat: str = '%d-%b-%y %H:%M:%S'
+
+logging.basicConfig(filename=file_name, filemode=file_mode, format=message_format,
+                    datefmt=message_dateformat)
 
 
-class checkSystemLogs:
+class Levels(Enum):
+    """
+    Enums
+    """
+    DEBUG = 0
+    INFO = 1
+    WARNING = 2
+    ERROR = 3
+    CRITICAL = 4
+
+
+class CheckSystemLogs:
+    """
+    pass_logs
+    :param self
+    :param log_level
+    """
+
     @staticmethod
-    def passLogs(self: str, logLevel: int):
+    def pass_logs(self: str, log_level: int):
         """
         :param self:
-        :param logLevel:
+        :param log_level:
         :return:
         """
-        match logLevel:
-            case 0:
+        match log_level:
+            case Levels.DEBUG:
                 logging.debug(self)
-            case 1:
+            case Levels.INFO:
                 logging.info(self)
-            case 2:
+            case Levels.WARNING:
                 logging.warning(self)
-            case 3:
+            case Levels.ERROR:
                 logging.error(self)
-            case 4:
+            case Levels.CRITICAL:
                 logging.critical(self)
