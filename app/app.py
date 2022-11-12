@@ -4,6 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from app.api.api_v1.router import api_v1_router
 from .core.config import settings
+from .system_logs.system_logs import checkSystemLogs
 
 # Databases
 from app.models.user_models.user_model import UserModel
@@ -41,6 +42,7 @@ async def app_init():
     )
 
     print("initialize application services")
+    checkSystemLogs.passLogs("Initialize application services", logLevel=2)
 
 
 @app.get("/")
