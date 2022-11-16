@@ -6,7 +6,7 @@
 import logging
 from enum import Enum
 
-file_name: str = "app_level.log"
+file_name: str = "app.log"
 file_mode: str = 'w'
 message_format: str = '%(asctime)s %(name)s - %(levelname)s - %(message)s'
 message_dateformat: str = '%d-%b-%y %H:%M:%S'
