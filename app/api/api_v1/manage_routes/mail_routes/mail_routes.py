@@ -1,10 +1,6 @@
 from fastapi import APIRouter
-from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
-from pydantic import EmailStr
 
 from app.schemas.mail_schema import MailSchema
-from app.core.config import settings
-from app.system_logs.system_logs import CheckSystemLogs
 
 # Mail Entry Point
 mail_router = APIRouter()
