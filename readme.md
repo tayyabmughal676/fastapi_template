@@ -26,7 +26,7 @@ docker-compose ps
 docker-compose down
  ```
 
-### The database will be accessible on ```localhost:27017``` with the specified root username and password.
+The database will be accessible on ```localhost:27017``` with the specified root username and password.
 
 ### Run App
 
