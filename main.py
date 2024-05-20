@@ -1,5 +1,5 @@
-import uvicorn
 import sys
+import uvicorn
 
 """
     @args:

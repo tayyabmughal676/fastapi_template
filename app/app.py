@@ -4,6 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie
 from app.api.api_v1.router import api_v1_router
 from .core.config import settings
+from .system_logs.system_logs import CheckSystemLogs
 
 # Databases
 from app.models.user_models.user_model import UserModel
@@ -15,6 +16,7 @@ app = FastAPI(
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
 )
 
+# [...]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.BACKEND_CORS_ORIGINS,
@@ -35,11 +37,24 @@ async def app_init():
         database=db_client,
         document_models=[
             UserModel,
-            TodoModel
+            TodoModel,
         ]
     )
 
     print("initialize application services")
+    CheckSystemLogs.pass_logs("Initialize application services", log_level=2)
+
+
+@app.get("/")
+async def read_root():
+    """
+    :return:
+    """
+    return {
+        "Welcome to": "Python FastAPI Framework with Mongodb Scaffold Template",
+        "Software Engineer": "Tayyab Mughal",
+        "Github": "https://github.com/tayyabmughal676"
+    }
 
 
 # Including the API V1 Routes

@@ -16,6 +16,10 @@ reusable_oauth2 = OAuth2PasswordBearer(
 
 # Get Current User
 async def get_current_user(token: str = Depends(reusable_oauth2)) -> UserModel:
+    """
+    :param token:
+    :return: user
+    """
     try:
         payload = jwt.decode(
             token, settings.JWT_SECRET_KEY, algorithms=[settings.ALGORITHM]

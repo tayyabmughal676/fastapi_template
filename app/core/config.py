@@ -25,6 +25,13 @@ class Settings(BaseSettings):
     # Database
     MONGO_CONNECTION_STRING: str = config("MONGO_CONNECTION_STRING", cast=str) + "?tlsAllowInvalidCertificates=true"
 
+    MAIL_USERNAME = config("MAIL_USERNAME", cast=str)
+    MAIL_PASSWORD = config("MAIL_PASSWORD", cast=str)
+    MAIL_FROM = config("MAIL_FROM", cast=str)
+    MAIL_PORT = config("MAIL_PORT", cast=int)
+    MAIL_SERVER = config("MAIL_SERVER", cast=str)
+    MAIL_FROM_NAME = config("MAIL_FROM_NAME", cast=str)
+
     class Config:
         case_sensitive = True
 
