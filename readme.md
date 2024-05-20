@@ -1,6 +1,8 @@
 ###Run App
 
-uvicorn app.app:app --reload
+[//]: # (uvicorn app.app:app --reload)
+
+fastapi dev
 
 ### Project Requirements
 

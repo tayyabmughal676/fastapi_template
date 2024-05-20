@@ -1,16 +1,79 @@
-import sys
-import uvicorn
+# import sys
+# import uvicorn
+#
+# """
+#     @args:
+#         --prod: production mode
+# """
+#
+# if __name__ == '__main__':
+#     is_prod = '--prod' in sys.argv
+#
+#     uvicorn.run(
+#         app='app.app:app',
+#         host='0.0.0.0',
+#         port=8000,
+#     )
 
-"""
-    @args:
-        --prod: production mode
-"""
 
-if __name__ == '__main__':
-    is_prod = '--prod' in sys.argv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from motor.motor_asyncio import AsyncIOMotorClient
+from beanie import init_beanie
+from app.api.api_v1.router import api_v1_router
+from app.core.config import settings
+from app.system_logs.system_logs import CheckSystemLogs
 
-    uvicorn.run(
-        app='app.app:app',
-        host='0.0.0.0',
-        port=8000,
+# Databases
+from app.models.user_models.user_model import UserModel
+from app.models.todo_models.todo_model import TodoModel
+
+# FastAPI App
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+)
+
+# [...]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.on_event("startup")
+async def app_init():
+    """
+        initialize application services
+    """
+    print(f"initialize f{settings.MONGO_CONNECTION_STRING}")
+    db_client = AsyncIOMotorClient(settings.MONGO_CONNECTION_STRING).fastapitemplate
+    await init_beanie(
+        database=db_client,
+        document_models=[
+            UserModel,
+            TodoModel,
+        ]
     )
+
+    print("initialize application services")
+    CheckSystemLogs.pass_logs("Initialize application services", log_level=2)
+
+
+@app.get("/")
+async def read_root():
+    """
+    :return:
+    """
+    return {
+        "Welcome to": "Python FastAPI Framework with Mongodb Scaffold Template",
+        "Software Engineer": "Tayyab Mughal",
+        "Github": "https://github.com/tayyabmughal676"
+    }
+
+
+# Including the API V1 Routes
+app.include_router(api_v1_router, prefix="/api/v1")
