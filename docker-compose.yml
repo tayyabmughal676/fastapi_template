@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  fastapi_template_mongo:
+    image: mongo:latest
+    container_name: fastapi_template_mongo
+    hostname: fastapi_template_mongo
+    ports:
+      - "29812:27017"
+    volumes:
+      - fastapi_template_mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    restart: unless-stopped
+
+volumes:
+  fastapi_template_mongo_data:
