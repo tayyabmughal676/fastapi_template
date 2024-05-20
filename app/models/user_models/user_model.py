@@ -37,5 +37,8 @@ class UserModel(Document):
     async def by_email(self, email: str) -> "UserModel":
         return await self.find_one(self.email == email)
 
-    class Collection:
+    # class Collection:
+    #     name = "users"
+
+    class Settings:
         name = "users"

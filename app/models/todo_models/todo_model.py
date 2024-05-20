@@ -6,7 +6,7 @@ from app.models.user_models.user_model import UserModel
 
 
 class TodoModel(Document):
-    todo_id: UUID = Field(default_factory=uuid4,)
+    todo_id: UUID = Field(default_factory=uuid4, )
     status: bool = False
     title: Indexed(str)
     description: str = None
@@ -32,5 +32,7 @@ class TodoModel(Document):
     def update_updated_at(self):
         self.updated_at = datetime.utcnow()
 
-    class Collection:
+    # class Collection:
+    #     name = "todos"
+    class Settings:
         name = "todos"

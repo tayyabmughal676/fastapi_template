@@ -1,4 +1,4 @@
 ###Run App
 
-unicorn app.app:app --reload
+uvicorn app.app:app --reload
 
